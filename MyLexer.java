@@ -8,11 +8,15 @@ public class MyLexer {
                     "(?<OPERATOR>>=|>|==|\\+|\\*)|" +
                     "(?<ID>[a-zA-Z]+[0-9]*)|" +
                     "(?<NUMBER>\\b\\d+\\b)|" +
-                    "(?<SYMBOL>[{}();=])|"
+
+                    "(?<SYMBOL>[{}();=])|" +
+                    "(?<WHITESPACE>\\s+)"
 
     );
     public static boolean checkMultiComments = false;
+    public static int n = 0;
     public static void tokenize(String input, List<Token> tokens) {
+        n++;
         if (checkMultiComments == true) {
             if (input.indexOf("*/") != -1) {
                 checkMultiComments = false;
@@ -20,7 +24,7 @@ public class MyLexer {
             return;
         }
         Matcher matcher = TOKEN_PATTERN.matcher(input);
-
+        int lastMatchEnd = 0;
         while (matcher.find()) {
             if (matcher.group("COMMENT") != null) {
                 if (matcher.group("COMMENT").equals("/*")) {
@@ -43,13 +47,21 @@ public class MyLexer {
                 tokens.add(new Token(TokenType.NUMBER, matcher.group("NUMBER")));
             } else if (matcher.group("SYMBOL") != null) {
                 tokens.add(new Token(TokenType.SYMBOL, matcher.group("SYMBOL")));
+            } else tokens.add(new Token(TokenType.WHITESPACE, ""));
+            if (matcher.start() > lastMatchEnd) {
+                System.out.println("Lỗi: Không hợp lệ - " + input.substring(lastMatchEnd, matcher.start()) + " line " + n);
             }
+            lastMatchEnd = matcher.end();
         }
+        if (lastMatchEnd < input.length()) {
+            System.out.println("Lỗi: Không hợp lệ - " + input.substring(lastMatchEnd) + " line " + n);
+        }
+
     }
 }
 
 enum TokenType {
-    COMMENT, KEYWORD, OPERATOR, ID, NUMBER, SYMBOL;
+    COMMENT, KEYWORD, OPERATOR, ID, NUMBER, SYMBOL, WHITESPACE;
 }
 
 class Token {
