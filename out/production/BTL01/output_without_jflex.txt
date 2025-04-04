@@ -1,143 +1,107 @@
-TOKEN <KEYWORD, "begin">
-TOKEN <WHITESPACE, "">
-TOKEN <WHITESPACE, "">
-TOKEN <WHITESPACE, "">
-TOKEN <OPERATOR, ">=">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "int">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "x">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "int">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "y">
-TOKEN <SYMBOL, "=">
-TOKEN <ID, "x">
-TOKEN <OPERATOR, "+">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <COMMENT, "multi comments">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "bool">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "a">
-TOKEN <SYMBOL, ";">
-TOKEN <COMMENT, "one comment">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "if">
-TOKEN <WHITESPACE, "">
-TOKEN <SYMBOL, "(">
-TOKEN <ID, "x">
-TOKEN <OPERATOR, ">">
-TOKEN <ID, "a">
-TOKEN <SYMBOL, ")">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "then">
-TOKEN <SYMBOL, "{">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "int">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "c">
-TOKEN <SYMBOL, "=">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <SYMBOL, "}">
-TOKEN <KEYWORD, "else">
-TOKEN <SYMBOL, "{">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "y">
-TOKEN <SYMBOL, "=">
-TOKEN <ID, "x">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "x">
-TOKEN <SYMBOL, "=">
-TOKEN <ID, "x">
-TOKEN <OPERATOR, "+">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <SYMBOL, "}">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "print">
-TOKEN <SYMBOL, "(">
-TOKEN <ID, "a">
-TOKEN <SYMBOL, ")">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "if">
-TOKEN <WHITESPACE, "">
-TOKEN <SYMBOL, "(">
-TOKEN <ID, "x">
-TOKEN <OPERATOR, ">=">
-TOKEN <ID, "a">
-TOKEN <SYMBOL, ")">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "then">
-TOKEN <SYMBOL, "{">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "x">
-TOKEN <SYMBOL, "=">
-TOKEN <ID, "x">
-TOKEN <OPERATOR, "+">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ";">
-TOKEN <SYMBOL, "}">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "bool">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "x">
-TOKEN <SYMBOL, "=">
-TOKEN <ID, "a">
-TOKEN <OPERATOR, "==">
-TOKEN <ID, "b">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "do">
-TOKEN <SYMBOL, "{">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "int">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "b">
-TOKEN <SYMBOL, "=">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "b">
-TOKEN <SYMBOL, "=">
-TOKEN <ID, "b">
-TOKEN <OPERATOR, "*">
-TOKEN <NUMBER, "10">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <ID, "a">
-TOKEN <SYMBOL, "=">
-TOKEN <SYMBOL, "(">
-TOKEN <ID, "b">
-TOKEN <OPERATOR, "+">
-TOKEN <NUMBER, "10">
-TOKEN <SYMBOL, ")">
-TOKEN <OPERATOR, "*">
-TOKEN <ID, "b">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <SYMBOL, "}">
-TOKEN <KEYWORD, "while">
-TOKEN <SYMBOL, "(">
-TOKEN <ID, "a">
-TOKEN <OPERATOR, ">">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ")">
-TOKEN <SYMBOL, ";">
-TOKEN <WHITESPACE, "">
-TOKEN <KEYWORD, "print">
-TOKEN <SYMBOL, "(">
-TOKEN <ID, "a">
-TOKEN <OPERATOR, "+">
-TOKEN <NUMBER, "1">
-TOKEN <SYMBOL, ")">
-TOKEN <SYMBOL, ";">
-TOKEN <KEYWORD, "end">
+Token(KEYWORD, "begin")
+Token(KEYWORD, "int")
+Token(IDENTIFIER, "x")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "int")
+Token(IDENTIFIER, "y")
+Token(COMPARE, "=")
+Token(IDENTIFIER, "x")
+Token(OPERATOR, "+")
+Token(NUMBER, "1")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "bool")
+Token(IDENTIFIER, "a")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "if")
+Token(SEPARATOR, "(")
+Token(IDENTIFIER, "x")
+Token(COMPARE, ">")
+Token(IDENTIFIER, "a")
+Token(SEPARATOR, ")")
+Token(KEYWORD, "then")
+Token(SEPARATOR, "{")
+Token(KEYWORD, "int")
+Token(IDENTIFIER, "c")
+Token(COMPARE, "=")
+Token(NUMBER, "1")
+Token(SEPARATOR, ";")
+Token(SEPARATOR, "}")
+Token(KEYWORD, "else")
+Token(SEPARATOR, "{")
+Token(IDENTIFIER, "y")
+Token(COMPARE, "=")
+Token(IDENTIFIER, "x")
+Token(SEPARATOR, ";")
+Token(IDENTIFIER, "x")
+Token(COMPARE, "=")
+Token(IDENTIFIER, "x")
+Token(OPERATOR, "+")
+Token(NUMBER, "1")
+Token(SEPARATOR, ";")
+Token(SEPARATOR, "}")
+Token(KEYWORD, "print")
+Token(SEPARATOR, "(")
+Token(IDENTIFIER, "a")
+Token(SEPARATOR, ")")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "if")
+Token(SEPARATOR, "(")
+Token(IDENTIFIER, "x")
+Token(COMPARE, ">=")
+Token(IDENTIFIER, "a")
+Token(SEPARATOR, ")")
+Token(KEYWORD, "then")
+Token(SEPARATOR, "{")
+Token(IDENTIFIER, "x")
+Token(COMPARE, "=")
+Token(IDENTIFIER, "x")
+Token(OPERATOR, "+")
+Token(NUMBER, "1")
+Token(SEPARATOR, ";")
+Token(SEPARATOR, "}")
+Token(KEYWORD, "bool")
+Token(IDENTIFIER, "x")
+Token(COMPARE, "=")
+Token(IDENTIFIER, "a")
+Token(COMPARE, "==")
+Token(IDENTIFIER, "b")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "do")
+Token(SEPARATOR, "{")
+Token(KEYWORD, "int")
+Token(IDENTIFIER, "b")
+Token(COMPARE, "=")
+Token(NUMBER, "1")
+Token(SEPARATOR, ";")
+Token(IDENTIFIER, "b")
+Token(COMPARE, "=")
+Token(IDENTIFIER, "b")
+Token(OPERATOR, "*")
+Token(NUMBER, "10")
+Token(SEPARATOR, ";")
+Token(IDENTIFIER, "a")
+Token(COMPARE, "=")
+Token(SEPARATOR, "(")
+Token(IDENTIFIER, "b")
+Token(OPERATOR, "+")
+Token(NUMBER, "10")
+Token(SEPARATOR, ")")
+Token(OPERATOR, "*")
+Token(IDENTIFIER, "b")
+Token(SEPARATOR, ";")
+Token(SEPARATOR, "}")
+Token(KEYWORD, "while")
+Token(SEPARATOR, "(")
+Token(IDENTIFIER, "a")
+Token(COMPARE, ">")
+Token(NUMBER, "1")
+Token(SEPARATOR, ")")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "print")
+Token(SEPARATOR, "(")
+Token(IDENTIFIER, "a")
+Token(OPERATOR, "+")
+Token(NUMBER, "1")
+Token(SEPARATOR, ")")
+Token(SEPARATOR, ";")
+Token(KEYWORD, "end")

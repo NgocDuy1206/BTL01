@@ -1,3 +1,5 @@
+package src.Lexer_regex;
+
 import java.util.*;
 import java.util.regex.*;
 
@@ -60,21 +62,7 @@ public class MyLexer {
     }
 }
 
+
 enum TokenType {
     COMMENT, KEYWORD, OPERATOR, ID, NUMBER, SYMBOL, WHITESPACE;
-}
-
-class Token {
-    private final TokenType type;
-    private final String value;
-
-    public Token(TokenType type, String value) {
-        this.type = type;
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "TOKEN <" + type + ", \"" + value + "\">";
-    }
 }

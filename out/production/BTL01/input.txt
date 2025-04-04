@@ -1,7 +1,7 @@
-begin ? % >=
+begin
 	int x;
 	int y=x+1;
-	/*	comments */
+	/*	comments
 	cho nhiều dòng
 	*/
 
@@ -12,7 +12,7 @@ begin ? % >=
 		y=x;
 		x=x+1;
 	}
-	print(a);?
+	print(a);
 	if (x>=a) then{
 	x=x+1;
 }
