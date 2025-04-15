@@ -1,19 +1,30 @@
 package src.Lexer_dfa;
 
 public class Token {
-    enum Type {
-        KEYWORD, IDENTIFIER, NUMBER, OPERATOR, SEPARATOR, COMMENT, STRING, END_OF_FILE, COMPARE
+    public enum Type {
+        KEYWORD, IDENTIFIER, NUMBER, OPERATOR, SEPARATOR, COMMENT, STRING, END_OF_FILE, COMPARE,
+
+        // Keyword
+        IF, THEN, ELSE, DO, WHILE, BEGIN, END, FOR, INT, BOOL,PRINT,
+        ASSIGN,
+        LPAREN, RPAREN, // ( )
+        LBRACE, RBRACE, // {   }
+        NULL, EOF, END_STATEMENT,
+        PLUS, MUL, // + , *
     }
 
-    Type type;
-    String value;
+    public Type type;
+    public String value;
 
-    Token(Type type, String value) {
+    public int line;
+
+    public Token(int line, Type type, String value) {
         this.type = type;
         this.value = value;
+        this.line = line;
     }
 
     public String toString() {
-        return "Token(" + type + ", \"" + value + "\")";
+        return "Token(" + type + ", \"" + value + "\") in line " + line;
     }
 }
