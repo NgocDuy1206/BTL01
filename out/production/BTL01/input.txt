@@ -6,9 +6,9 @@ begin
 	*/
 
 	bool a;//comment cho một dòng
-	if (x > a) then
+	if (x > a) then{
 		int c=1;
-	else{
+	}else{
 		y=x;
 		x=x+1;
 	}

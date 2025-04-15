@@ -11,7 +11,8 @@ public class TestParser {
 
         // Tạo Parser và phân tích cú pháp
         Parser parser = new Parser(tokens);
-        parser.parseProgram();
+        Node program = parser.parseProgram();
+        program.print("", true);
     }
 
 

@@ -19,11 +19,13 @@ Token(COMPARE, ">") in line 9
 Token(IDENTIFIER, "a") in line 9
 Token(RPAREN, ")") in line 9
 Token(THEN, "then") in line 9
+Token(LBRACE, "{") in line 9
 Token(INT, "int") in line 10
 Token(IDENTIFIER, "c") in line 10
 Token(ASSIGN, "=") in line 10
 Token(NUMBER, "1") in line 10
 Token(END_STATEMENT, ";") in line 10
+Token(RBRACE, "}") in line 11
 Token(ELSE, "else") in line 11
 Token(LBRACE, "{") in line 11
 Token(IDENTIFIER, "y") in line 12
