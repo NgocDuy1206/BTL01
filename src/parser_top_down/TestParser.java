@@ -1,7 +1,7 @@
-package test;
+package src.parser_top_down;
 
 import src.Lexer_dfa.Token;
-import src.parser_top_down.*;
+
 import java.util.*;
 
 public class TestParser {
@@ -13,6 +13,7 @@ public class TestParser {
         Parser parser = new Parser(tokens);
         Node program = parser.parseProgram();
         program.print("", true);
+        parser.printErorr();
     }
 
 

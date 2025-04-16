@@ -3,21 +3,45 @@ package src.parser_top_down;
 import src.Lexer_dfa.Token;
 
 import javax.swing.tree.TreeNode;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 public class Parser {
     private List<Token> tokens;
     private int current = 0;
+    
+    private List<String> erorrList = new ArrayList<>();
+    private Set<Token.Type> syncTokens = Set.of(
+            Token.Type.END_STATEMENT,
+            Token.Type.RBRACE,
+            Token.Type.IF,
+            Token.Type.FOR,
+            Token.Type.DO,
+            Token.Type.PRINT,
+            Token.Type.INT,
+            Token.Type.BOOL,
+            Token.Type.WHILE
+    );
+
+    private Set<Token.Type> startStatement = Set.of(
+            Token.Type.IF,
+            Token.Type.FOR,
+            Token.Type.DO,
+            Token.Type.PRINT,
+            Token.Type.INT,
+            Token.Type.BOOL,
+            Token.Type.WHILE
+    );
 
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
     }
 
+
     private Token peek() {
+
         return tokens.get(current);
     }
+    
 
     private Token advance() {
         if (!isAtEnd()) current++;
@@ -51,12 +75,20 @@ public class Parser {
         if (check(type)) {
             advance();
             return;
+        } else {
+            error(message);
+            while (!checkSyncToken(peek().type)) current++;
         }
-        throw error(message);
     }
 
-    private RuntimeException error(String message) {
-        return new RuntimeException("[Parser Error] " + message + " at token: " + peek());
+
+    private boolean checkSyncToken(Token.Type x) {
+        if (syncTokens.contains(x)) return true;
+        return false;
+    }
+
+    private void error(String message) {
+        erorrList.add("[Parser Error]: " + message + " after token: " + previous());
     }
 
     // Entry point
@@ -67,16 +99,33 @@ public class Parser {
         consume(Token.Type.BEGIN, "Expect 'begin'");
         program.addNode(new Node("begin"));
 
-        program.addNode(parseBlock());
+        program.addNode(parseBody());
 
 
         consume(Token.Type.END, "Expect 'end'");
         program.addNode(new Node("end"));
-
-        System.out.println("Parsing completed successfully.");
         return program;
     }
 
+    private Node parseBody() {
+        Node body = new Node("Body");
+        if (match(Token.Type.LBRACE)) {
+            body.addNode(parseStatementList());
+            consume(Token.Type.RBRACE, "Expect '}' ");
+        } else {
+            body.addNode(parseStatementList());
+        }
+        return body;
+    }
+    private Node parseStatementList() {
+        Node statementList = new Node("StatementList");
+        while (startStatement.contains(peek().type)) {
+            statementList.addNode(parseStatement());
+        }
+
+        return statementList;
+
+    }
     private Node parseBlock() {
         Node block = new Node("block");
         if (match(Token.Type.LBRACE)) {  // nếu có dấu {
@@ -88,7 +137,7 @@ public class Parser {
             block.addNode(new Node("}"));
         } else {
             // không có dấu { } → parse các câu lệnh cho đến khi gặp 'end' hoặc '}'
-            while (!check(Token.Type.END) && !check(Token.Type.RBRACE) && !isAtEnd()) {
+            while (!check(Token.Type.END_STATEMENT) && !check(Token.Type.RBRACE) && !isAtEnd()) {
                 block.addNode(parseStatement());
             }
         }
@@ -115,7 +164,7 @@ public class Parser {
             consume(Token.Type.END_STATEMENT, "Expect ';' after print statement");
             statement.addNode(";");
         } else {
-            throw error("Unknown statement.");
+             error("Unknown statement.");
         }
         return statement;
     }
@@ -176,7 +225,11 @@ public class Parser {
     private Node parseDoWhile() {
         Node dowhile = new Node("DoWhile_Statement");
         dowhile.addNode("do");
-        dowhile.addNode(parseBlock());
+        consume(Token.Type.LBRACE, "Expect '{' ");
+        dowhile.addNode("{");
+        dowhile.addNode(parseStatementList());
+        consume(Token.Type.RBRACE, "Expect '}' ");
+        dowhile.addNode("}");
         consume(Token.Type.WHILE, "Expect 'while' after 'do' block");
         dowhile.addNode("while");
         consume(Token.Type.LPAREN, "Expect '(' after 'while'");
@@ -239,7 +292,7 @@ public class Parser {
             condition.addNode(previous().value);
             condition.addNode(parseExpression());
         } else {
-            throw error("Expect comparison operator in condition");
+             error("Expect comparison operator in condition");
         }
         return condition;
     }
@@ -278,9 +331,20 @@ public class Parser {
             factor.addNode(")");
             consume(Token.Type.RPAREN, "Expect ')' after expression");
         } else {
-            throw error("Expect expression");
+             error("Expect expression");
         }
         return factor;
+    }
+
+    public void printErorr() {
+        if (erorrList.size() == 0) {
+            System.out.println("không có lỗi cú pháp");
+            return;
+        }
+        System.out.println("ERORR PARSER LIST:");
+        for (String i : erorrList) {
+            System.out.println(i);
+        }
     }
 } // end of Parser class
 

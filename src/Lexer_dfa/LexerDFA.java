@@ -9,7 +9,7 @@ public class LexerDFA {
     private static int line = 0;
     private static boolean checkComment = false;
     private static final Set<String> KEYWORDS = new HashSet<>(Arrays.asList(
-            "begin", "end", "int", "bool", "if", "then", "else", "do", "while", "for", "print"
+            "begin", "end", "int", "bool", "if", "then", "else", "do", "while", "for", "print", "true", "false"
     ));
     private static final Set<Character> OPERATORS = new HashSet<>(Arrays.asList('+', '*', '-', '/'));
 
@@ -76,7 +76,7 @@ public class LexerDFA {
             }
 
             else {
-                System.out.println("ERROR:" + input.charAt(index) + "in line " + line);
+                System.out.println("ERROR LEXER : CHARACTER " + input.charAt(index) + " in line " + line);
                 index++;
 
             }
@@ -103,18 +103,20 @@ public class LexerDFA {
         String s = input.substring(start, index);
         if (KEYWORDS.contains(s)) {
             switch (s) {
-                case "if": return new Token(line, Token.Type.IF, s);
-                case "else": return new Token(line, Token.Type.ELSE, s);
-                case "then": return new Token(line, Token.Type.THEN, s);
-                case "do": return new Token(line, Token.Type.DO, s);
-                case "while": return new Token(line, Token.Type.WHILE, s);
-                case "for": return new Token(line, Token.Type.FOR, s);
-                case "begin": return new Token(line, Token.Type.BEGIN, s);
-                case "end": return new Token(line, Token.Type.END, s);
-                case "int": return new Token(line, Token.Type.INT, s);
-                case "bool": return new Token(line, Token.Type.BOOL, s);
-                case "print": return new Token(line, Token.Type.PRINT, s);
-                default: return new Token(line, Token.Type.KEYWORD, s);
+                case "if":      return new Token(line, Token.Type.IF, s);
+                case "else":    return new Token(line, Token.Type.ELSE, s);
+                case "then":    return new Token(line, Token.Type.THEN, s);
+                case "do":      return new Token(line, Token.Type.DO, s);
+                case "while":   return new Token(line, Token.Type.WHILE, s);
+                case "for":     return new Token(line, Token.Type.FOR, s);
+                case "begin":   return new Token(line, Token.Type.BEGIN, s);
+                case "end":     return new Token(line, Token.Type.END, s);
+                case "int":     return new Token(line, Token.Type.INT, s);
+                case "bool":    return new Token(line, Token.Type.BOOL, s);
+                case "print":   return new Token(line, Token.Type.PRINT, s);
+                case "true":    return new Token(line, Token.Type.BOOLEAN, s);
+                case "false":   return new Token(line, Token.Type.BOOLEAN, s);
+                default:        return new Token(line, Token.Type.KEYWORD, s);
             }
         } else return new Token(line, Token.Type.IDENTIFIER, s);
     }

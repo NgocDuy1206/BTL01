@@ -1,6 +1,7 @@
-package test;
+package src.parser_bottom_up;
+
+import src.Lexer_dfa.LexerDFA;
 import src.Lexer_dfa.Token;
-import src.Lexer_dfa.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,9 +10,8 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Test {
-    public static List<Token> test() {
+    public static void main(String args[]) {
         try {
             FileReader f = new FileReader("input.txt");
             BufferedReader bf = new BufferedReader(f);
@@ -32,24 +32,12 @@ public class Test {
 
             bf.close();
             bfw.close();
-            return tokens;
+
+            Parser p = new Parser(tokens);
+            p.parse();
 
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
-
-        return null;
-    }
-
-
-
-    private static void test_regex() {
-
-    }
-
-    private static void test_dfa() {
-    }
-
-    private static void test_jflex() {
     }
 }
