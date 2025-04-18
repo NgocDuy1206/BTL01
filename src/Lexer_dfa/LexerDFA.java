@@ -111,8 +111,8 @@ public class LexerDFA {
                 case "for":     return new Token(line, Token.Type.FOR, s);
                 case "begin":   return new Token(line, Token.Type.BEGIN, s);
                 case "end":     return new Token(line, Token.Type.END, s);
-                case "int":     return new Token(line, Token.Type.INT, s);
-                case "bool":    return new Token(line, Token.Type.BOOL, s);
+                case "int":     return new Token(line, Token.Type.DATA_TYPE, s);
+                case "bool":    return new Token(line, Token.Type.DATA_TYPE, s);
                 case "print":   return new Token(line, Token.Type.PRINT, s);
                 case "true":    return new Token(line, Token.Type.BOOLEAN, s);
                 case "false":   return new Token(line, Token.Type.BOOLEAN, s);

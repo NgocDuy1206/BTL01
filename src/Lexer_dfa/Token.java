@@ -5,6 +5,7 @@ public class Token {
         KEYWORD, IDENTIFIER, NUMBER, BOOLEAN, OPERATOR, SEPARATOR, COMMENT, STRING, END_OF_FILE, COMPARE,
 
         // Keyword
+        DATA_TYPE,
         IF, THEN, ELSE, DO, WHILE, BEGIN, END, FOR, INT, BOOL,PRINT,
         ASSIGN,
         LPAREN, RPAREN, // ( )

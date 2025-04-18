@@ -31,7 +31,7 @@ public class Parser {
 
         actionTable.put(new Pair<>(2, "+"), "r2");
         actionTable.put(new Pair<>(2, "*"), "s7");
-        actionTable.put(new Pair<>(2, ")"), "s2");
+        actionTable.put(new Pair<>(2, ")"), "r2");
         actionTable.put(new Pair<>(2, "$"), "r2");
 
         actionTable.put(new Pair<>(3, "+"), "r4");
@@ -100,22 +100,17 @@ public class Parser {
         rules.add(new Rule("F", Arrays.asList("id")));
     }
 
-    private void reduce() {
-
-    }
-    private void shift(int newState) {
-
-
-    }
-    private void gotoX() {
-
-    }
 
     public void parse() throws Exception {
         stateStack.push(0); // bắt đầu từ state 0
         int index = 0;
-
+        System.out.printf("%-30s", "Stack");
+        System.out.printf("%-30s", "Symbol");
+        System.out.printf("%-30s", "Input");
+        System.out.printf("%-30s", "Action");
+        System.out.println();
         while (true) {
+            printLineTable(index);
             int currentState = stateStack.peek();
             String currentToken = getTerminal(tokens.get(index));
 
@@ -128,6 +123,7 @@ public class Parser {
 
             if (action.startsWith("s")) { // Shift
                 int nextState = Integer.parseInt(action.substring(1));
+                System.out.printf("%-30s", "shift " + nextState);
                 symbolStack.push(currentToken);
                 stateStack.push(nextState);
                 index++;
@@ -144,11 +140,12 @@ public class Parser {
                 int gotoState = gotoTable.get(new Pair<>(stateStack.peek(), rule.lhs));
                 stateStack.push(gotoState);
 
-                System.out.println("Reduce theo luật: " + rule);
+                System.out.printf("Reduce %-30s", rule);
             } else if (action.equals("acc")) {
                 System.out.println("Phân tích thành công!");
                 break;
             }
+            System.out.println();
         }
     }
 
@@ -166,6 +163,29 @@ public class Parser {
                 return "+";
             } else return "*";
         } throw new Exception("Lỗi token không hợp lệ");
+    }
+
+    private void printLineTable(int pos) {
+        String s = "";
+        for(Integer i : stateStack) {
+            s += Integer.toString(i);
+        }
+       System.out.printf("%-30s", s);
+        s = "";
+        for(String i : symbolStack) {
+            s += i;
+        }
+        System.out.printf("%-30s", s);
+        s = "";
+        for (int j = pos; j < tokens.size(); j++) {
+            if (tokens.get(j).type == Token.Type.IDENTIFIER) {
+                s += "id"; continue;
+            } else if (tokens.get(j).type == Token.Type.END_OF_FILE) {
+                s += "$"; continue;
+            }
+                s += tokens.get(j).value;
+        }
+        System.out.printf("%-30s", s);
     }
 }
 

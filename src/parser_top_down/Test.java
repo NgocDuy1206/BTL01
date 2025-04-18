@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Test {
     public static List<Token> test() {
+
         try {
             FileReader f = new FileReader("input.txt");
             BufferedReader bf = new BufferedReader(f);
