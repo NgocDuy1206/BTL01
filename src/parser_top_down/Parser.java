@@ -9,20 +9,10 @@ public class Parser {
     private List<Token> tokens;
     private int current = 0;
 
+    private ManageSymbol manageSymbol = new ManageSymbol();
     
     private List<String> erorrList = new ArrayList<>();
-    private Set<Token.Type> syncTokens = Set.of(
-            Token.Type.END_STATEMENT,
-            Token.Type.RBRACE,
-            Token.Type.IF,
-            Token.Type.FOR,
-            Token.Type.DO,
-            Token.Type.PRINT,
-            Token.Type.INT,
-            Token.Type.BOOL,
-            Token.Type.WHILE,
-            Token.Type.END
-    );
+
 
     private Set<Token.Type> startStatement = Set.of(
             Token.Type.IF,
@@ -72,10 +62,11 @@ public class Parser {
         if (isAtEnd()) return false;
         return peek().type == type;
     }
-
     private void consume(Node parent, Token.Type type, String message) {
         if (check(type)) {
-            parent.addNode(type.name());
+            Node x = new Node(type.name(), peek().line);
+            x.addNode(peek().value);
+            parent.addNode(x);
             advance();
             return;
         } else {
@@ -83,6 +74,7 @@ public class Parser {
             int t = current;
             while (t < current + 5) {
                 t++;
+                if (t >= tokens.size()) break;
                 if (tokens.get(t).type == type) {
                     current = t;
                     advance();
@@ -90,12 +82,6 @@ public class Parser {
                 }
             }
         }
-    }
-
-
-    private boolean checkSyncToken(Token.Type x) {
-        if (syncTokens.contains(x)) return true;
-        return false;
     }
 
     private void error(String message) {
@@ -118,6 +104,7 @@ public class Parser {
     }
 
     private Node parseBody() {
+
         Node body = new Node("Body");
         if (match(Token.Type.LBRACE)) {
 
@@ -130,18 +117,23 @@ public class Parser {
         } else {
             body.addNode(parseStatementList());
         }
+
         return body;
     }
     private Node parseStatementList() {
         Node statementList = new Node("StatementList");
         while (startStatement.contains(peek().type)) {
             statementList.addNode(parseStatement());
+//            while (!startStatement.contains(peek().type) && peek().type != Token.Type.END) {
+//                advance();
+//            }
         }
 
         return statementList;
 
     }
     private Node parseBlock() {
+
         Node block = new Node("block");
         if (match(Token.Type.LBRACE)) {  // nếu có dấu {
 
@@ -152,11 +144,9 @@ public class Parser {
             consume(block, Token.Type.RBRACE, "Expect '}' after block");
 
         } else {
-            // không có dấu { } → parse các câu lệnh cho đến khi gặp 'end' hoặc '}'
-            while (!check(Token.Type.END_STATEMENT) && !check(Token.Type.RBRACE) && !isAtEnd()) {
                 block.addNode(parseStatement());
-            }
         }
+
         return block;
     }
 
@@ -184,8 +174,11 @@ public class Parser {
     private Node parseDeclaration() {
         Node declaration = new Node("declaration_statement");
         Token x = peek();
+
+        Token.Type type = x.type;
         consume(declaration, Token.Type.DATA_TYPE, "Expect type of declaration");
 
+        String name = peek().value;
         consume(declaration, Token.Type.IDENTIFIER, "Expect variable name");
 
 
@@ -199,6 +192,8 @@ public class Parser {
                     declaration.addNode(parseCondition());
                     consume(declaration, Token.Type.RPAREN, "Expect ')' " );
 
+                } else if (match(Token.Type.BOOLEAN)) {
+                    consume(declaration, Token.Type.BOOLEAN, "");
                 } else declaration.addNode(parseCondition());
             } else declaration.addNode(parseExpression());
         }
@@ -208,7 +203,7 @@ public class Parser {
     }
 
     private Node parseAssignment(boolean checkEnd) {
-        Node assign = new Node("assign");
+        Node assign = new Node("assign_statement");
 
         consume(assign, Token.Type.IDENTIFIER, "Expect 'id' ");
         consume(assign, Token.Type.ASSIGN, "Expect '=' ");
@@ -311,12 +306,17 @@ public class Parser {
     }
 
     private Node parseExpression() {
+
         Node express = new Node("expression");
         express.addNode(parseTerm());
-        while (match(Token.Type.OPERATOR)) {
+
+        while (match(Token.Type.OPERATOR) && peek().value.equals("+")) {
+
             consume(express, peek().type, "Expect operation ");
             express.addNode(parseTerm());
+
         }
+
         return express;
     }
 
@@ -324,10 +324,14 @@ public class Parser {
 
         Node term = new Node("term");
         term.addNode(parseFactor());
-        while (match(Token.Type.OPERATOR)) {
+
+        while (match(Token.Type.OPERATOR) && peek().value.equals("*")) {
+
             consume(term, peek().type, "Expect operation ");
             term.addNode(parseFactor());
+
         }
+
         return term;
     }
 
@@ -335,10 +339,14 @@ public class Parser {
 
         Node factor = new Node("factor");
 
-        if (match(Token.Type.NUMBER, Token.Type.BOOL, Token.Type.IDENTIFIER)) {
+        if (match(Token.Type.NUMBER, Token.Type.BOOLEAN, Token.Type.IDENTIFIER)) {
             // do nothing - it's a leaf
+
+
             consume(factor, peek().type, "");
+
         } else if (match(Token.Type.LPAREN)) {
+
             consume(factor, Token.Type.LPAREN, "");
             factor.addNode(parseExpression());
 
@@ -350,16 +358,23 @@ public class Parser {
     }
 
     public void printErorr(Node root) {
+
         if (erorrList.size() == 0) {
+
             System.out.println("không có lỗi cú pháp");
             System.out.println("Cây cú pháp: ");
-            root.print("", true);
+            root.printNode("", true);
             return;
+
         }
+
         System.out.println("ERORR PARSER LIST:");
+
         for (String i : erorrList) {
+
             System.out.println(i);
+
         }
     }
-} // end of Parser class
+}
 

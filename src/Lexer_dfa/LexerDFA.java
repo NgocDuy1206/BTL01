@@ -11,7 +11,7 @@ public class LexerDFA {
     private static final Set<String> KEYWORDS = new HashSet<>(Arrays.asList(
             "begin", "end", "int", "bool", "if", "then", "else", "do", "while", "for", "print", "true", "false"
     ));
-    private static final Set<Character> OPERATORS = new HashSet<>(Arrays.asList('+', '*', '-', '/'));
+    private static final Set<Character> OPERATORS = new HashSet<>(Arrays.asList('+', '*', '/'));
 
     private static final Set<Character> COMPARE = new HashSet<>(Arrays.asList('>', '<', '='));
     private static final Set<Character> SEPARATORS = new HashSet<>(Arrays.asList('(', ')', '{', '}', ';', ','));

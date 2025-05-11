@@ -1,26 +1,28 @@
 begin
-	int x;
+	int x = 1;
 	int y=x+1;
 	/*	comments
 	cho nhiều dòng
 	*/
 
-	bool a;//comment cho một dòng
-	if (x>a) then{
+	int a = 1;//comment cho một dòng
+	if (x >= a) then{
 		int c=1;
 	}else{
-		y=x;
-		x=x+1;
+		y = x;
+		x = x + 1;
 	}
 	print(a);
 	if (x>=a) then{
 	x=x+1;
 }
-	bool x=a==b;
+
 	do{
+	    int k;
 		int b=1;
 		b=b*10;
 		a=(b+10)*b;
 	}while(a>1);
 	print(a+1);
+	print(k);
 end
