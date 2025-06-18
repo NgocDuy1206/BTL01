@@ -1,0 +1,35 @@
+THREE ADDRESS CODE: 
+x = 1
+t0 = x + 1
+y = t0
+a = 1
+t1 = x > a
+ifFalse t1 goto L0
+c = 1
+goto L1
+L0 :
+y = x
+t2 = x + 1
+x = t2
+L1 :
+PRINT a
+t3 = x >= a
+ifFalse t3 goto L2
+t4 = x + 1
+x = t4
+L2 :
+b = 0
+t = a
+L3 :
+b = 1
+t5 = b * 10
+b = t5
+t6 = b + 10
+t7 = t6 * b
+a = t7
+t8 = a > 1
+ifFalse t8 goto L4
+goto L3
+L4 :
+t9 = a + 1
+PRINT t9

@@ -6,12 +6,10 @@ import javax.swing.tree.TreeNode;
 import java.util.*;
 
 public class Parser {
-    private List<Token> tokens;
+    private final List<Token> tokens;
     private int current = 0;
-
-    private ManageSymbol manageSymbol = new ManageSymbol();
     
-    private List<String> erorrList = new ArrayList<>();
+    private final List<String> erorrList = new ArrayList<>();
 
 
     private Set<Token.Type> startStatement = Set.of(
@@ -30,8 +28,7 @@ public class Parser {
 
 
     private Token peek() {
-        if (current >=0 && current < tokens.size())
-        return tokens.get(current);
+        if (current >=0 && current < tokens.size()) return tokens.get(current);
         return tokens.get(tokens.size() - 1);
     }
     
@@ -371,9 +368,7 @@ public class Parser {
         System.out.println("ERORR PARSER LIST:");
 
         for (String i : erorrList) {
-
             System.out.println(i);
-
         }
     }
 }

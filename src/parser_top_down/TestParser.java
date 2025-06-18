@@ -1,6 +1,7 @@
 package src.parser_top_down;
 
 import src.Lexer_dfa.Token;
+import src.three_address_code.TAC;
 
 import java.util.*;
 
@@ -15,6 +16,12 @@ public class TestParser {
         parser.printErorr(tree.root);
         ManageSymbol manage = new ManageSymbol();
         tree.checkSematic(tree.root, manage);
-        manage.printErr();
+        if (manage.listErr.size() != 0) {
+            manage.printErr();
+        } else {
+            TAC x = new TAC();
+            x.generator(tree.root);
+            x.print();
+        }
     }
 }

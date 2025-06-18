@@ -57,13 +57,6 @@ public class ManageSymbol {
         return null; // Không tìm thấy
     }
 
-//    public Token.Type getVar(String name) {
-//        if (!this.checkExist(name)) {
-//            listErr.add("không tồn tại biến " + name);
-//
-//        }
-//    }
-
     protected void printTable() {
         System.out.println();
         for (Map.Entry<String, Symbol> entry: currentTable.entrySet()) {

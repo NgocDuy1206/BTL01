@@ -25,20 +25,18 @@ public class ParserTree {
     public boolean checkSematic(Node node, ManageSymbol manage) {
         String name = node.name;
         switch (name) {
-            case "program":
+            case "program", "block":
                 return  checkSematic(node.child.get(1), manage);
-            case "block":
-                manage.addStack();
-                checkSematic(node.child.get(1), manage);
-                manage.popStack();
-                break;
+
             case "Body", "statement":
                 return checkSematic(node.child.get(0), manage);
             case "StatementList":
+                manage.addStack();
                 boolean j = true;
                 for (int i = 0; i < node.child.size(); i++) {
                     if (!checkSematic(node.child.get(i), manage)) j = false;
                 }
+                manage.popStack();
                 return j;
             case "declaration_statement": {
                 Token.Type type = convert(node.child.get(0).child.get(0).name);
@@ -72,6 +70,7 @@ public class ParserTree {
                 if (!checkExpress(node.child.get(2), manage, type)) {
                     manage.addErr("phép gán không hợp lệ in line " + node.child.get(0).line);
                 }
+                break;
             }
             case "if_statement":
                 checkExpress(node.child.get(2), manage, null);
@@ -133,6 +132,20 @@ public class ParserTree {
                 }
                 break;
             case "condition":
+                if (node.child.size() == 1) {
+                    switch (node.child.get(0).name) {
+                        case "IDENTIFIER": {
+                            String name = node.child.get(0).child.get(0).name;
+                            if (!manage.checkType(name, Token.Type.BOOL)) {
+                                manage.addErr("kiểu của biến " + name + " không hợp lệ");
+                                return false;
+                            }
+                        }
+                        case "BOOLEAN":
+                            return true;
+                        default: return true;
+                    }
+                }
                 boolean a = checkExpress(node.child.get(0), manage, Token.Type.INT);
                 boolean b = checkExpress(node.child.get(2), manage, Token.Type.INT);
                 if (a != b) {

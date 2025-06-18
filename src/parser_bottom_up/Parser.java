@@ -13,7 +13,7 @@ public class Parser {
 
     private List<Rule> rules = new ArrayList<>();
     private List<Token> tokens;
-    private int pos = 0;
+
     public Parser(List<Token> input) {
         this.tokens = input;
         createTable();
